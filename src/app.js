@@ -1,10 +1,10 @@
-let play_board = ["", "", "", "", "", "", "", "", ""];
-const player = "O";
-const computer = "X";
-let board_full = false;
-let ai_level;
+
 
 function createGame(play_board =["","","","","","","","",""]){
+    const player = "O";
+    const computer = "X";
+    let board_full = false;
+    let ai_level;
 
     const game = {}
 
@@ -32,8 +32,6 @@ function createGame(play_board =["","","","","","","","",""]){
         render_board();
         configure_ai();
     }
-
-    //setTimeout(render_board(), 3000);
 
     const checkBoardComplete = () => {
         let flag = true;
@@ -67,7 +65,7 @@ function createGame(play_board =["","","","","","","","",""]){
     }
     game.randomizeStart = randomizeStart
 
-    const addPlayerMove = e => {
+    window.addPlayerMove = e => {
         if (play_board[e] == "" && !board_full) {
             document.querySelector("#ai_level").disabled = true;
             play_board[e] = player;
@@ -75,7 +73,6 @@ function createGame(play_board =["","","","","","","","",""]){
             addComputerMove(ai_level);
         }
     };
-    game.addPlayerMove = addPlayerMove
 
     const addComputerMove = (ai_level) => {
         if(!board_full){
@@ -300,7 +297,7 @@ function createGame(play_board =["","","","","","","","",""]){
 
         var mute_sound_btn = document.getElementsByClassName("btn-sound")[0];
         if (mute_sound_btn != undefined)
-            mute_sound_btn.parentNode.removeChild(mute_sound_btn); //delete the button when reseting the board
+            mute_sound_btn.parentNode.removeChild(mute_sound_btn); //delete the button when resetting the board
     }
     game.reset_board = reset_board
 
@@ -310,36 +307,3 @@ function createGame(play_board =["","","","","","","","",""]){
 if(typeof (module) != 'undefined'){
     module.exports = createGame
 }
-
-//document.getElementsByClassName("playerstat1").innerText = playerstat1;
-//document.getElementsByClassName("computerstat").innerText = computerstat1;
-
-//randomizeStart();
-
-// window.addEventListener("DOMContentLoaded", event => {
-//     const audio = document.querySelector("audio");
-//     audio.volume = 0.2;
-//     audio.play();
-// });
-
-// const checkbox = document.getElementById('checkbox');
-
-// container-custom.addEventListener('onclick', () => {
-//     // change the theme of the website
-//     document.body.classList.toggle('dark');
-// });
-
-
-/*var button = document.getElementById("checkbox");
-
-button.addEventListener("click", function() {
-    const curColour = document.body.style.backgroundColor;
-
-    if (curColour === 'white') {
-        document.body.style.backgroundColor = "darkgray";
-    }
-    else {
-        document.body.style.backgroundColor = "white";
-    }
-});
-*/

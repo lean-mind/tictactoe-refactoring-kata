@@ -1,10 +1,10 @@
 
-let instuctions = document.querySelector(".popup-container");
-let startButtun = document.querySelector("#start-btn");
+let instructions = document.querySelector(".popup-container");
+let startButton = document.querySelector("#start-btn");
 let customContainer = document.querySelector(".container-custom");
 
 // adding functionalities to the instructions container
-startButtun.addEventListener("click", () =>{
-    instuctions.style.display = "none";
+startButton.addEventListener("click", () =>{
+    instructions.style.display = "none";
     customContainer.style.display = "flex";
 })
