@@ -59,6 +59,34 @@ Now you are ready to run the tests. Go to the **docker terminal** and run the co
 npm run test
 ```
 
+
+## Running end-to-end test (e2e)
+
+End-to-end tests will be run locally. You will need to start an express server and run the test with cypress. 
+You can follow the next steps:
+
+1. Start express server. Open a new terminal and run the following command:
+
+```bash
+npm run server
+```
+
+Note: the server will start. Leave it listening.
+
+
+2. Run tests. Open another terminal and run the following command:
+
+```bash
+npm run e2e
+```
+
+In case you want to show the browser during the execution, run this command instead:
+
+```bash
+npm run e2e-browser
+```
+
+
 ## Uninstall local dependencies
 
 Delete `node_modules` folder
