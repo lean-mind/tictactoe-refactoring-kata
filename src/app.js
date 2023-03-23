@@ -1,6 +1,4 @@
-
-
-function createGame(play_board =["","","","","","","","",""]){
+function createGame(play_board = ["", "", "", "", "", "", "", "", ""]) {
     const player = "O";
     const computer = "X";
     let board_full = false;
@@ -11,9 +9,9 @@ function createGame(play_board =["","","","","","","","",""]){
     const render_board = () => {
         const board_container = document.querySelector(".play-area");
         board_container.innerHTML = "";
-        play_board.forEach((e,i) => {
+        play_board.forEach((e, i) => {
             board_container.innerHTML += `<div id="block_${i}" class="block" onclick="addPlayerMove(${i})">${play_board[i]}</div>`;
-            if(e == player || e == computer) {
+            if (e == player || e == computer) {
                 document.querySelector(`#block_${i}`).classList.add("occupied");
             }
         });
@@ -28,7 +26,7 @@ function createGame(play_board =["","","","","","","","",""]){
         });
     }
 
-    game.start =  () => {
+    game.start = () => {
         render_board();
         configure_ai();
     }
@@ -36,7 +34,7 @@ function createGame(play_board =["","","","","","","","",""]){
     const checkBoardComplete = () => {
         let flag = true;
         play_board.forEach(element => {
-            if(element == "") {
+            if (element == "") {
                 flag = false;
             }
         });
@@ -52,16 +50,17 @@ function createGame(play_board =["","","","","","","","",""]){
     game.game_loop = game_loop
 
     const randomizeStart = () => {
-        if(play_board.every(item=> item==="")){
-        // const PLAYER = 0;
-        const COMPUTER = 1;
-        const start = Math.round(Math.random());
-        if(start === COMPUTER){
-            addComputerMove(ai_level);
-            console.log("COMPUTER STARTED")
-        }else{
-            console.log("PLAYER STARTS")
-        }}
+        if (play_board.every(item => item === "")) {
+            // const PLAYER = 0;
+            const COMPUTER = 1;
+            const start = Math.round(Math.random());
+            if (start === COMPUTER) {
+                addComputerMove(ai_level);
+                console.log("COMPUTER STARTED")
+            } else {
+                console.log("PLAYER STARTS")
+            }
+        }
     }
     game.randomizeStart = randomizeStart
 
@@ -75,35 +74,34 @@ function createGame(play_board =["","","","","","","","",""]){
     };
 
     const addComputerMove = (ai_level) => {
-        if(!board_full){
+        if (!board_full) {
             let score;
             let compare;
             switch (ai_level) {
                 case "hard":
                     score = -Infinity;
-                    compare = (a,b) => a > b;
+                    compare = (a, b) => a > b;
                     break;
                 case "easy":
                     score = Infinity;
-                    compare = (a,b) => a < b;
+                    compare = (a, b) => a < b;
                     break;
                 case "normal":
                     let guess = Math.random() * 100;
                     if (guess <= 40) {
                         score = Infinity;
-                        compare = (a,b) => a < b;
-                    }
-                    else {
+                        compare = (a, b) => a < b;
+                    } else {
                         score = -Infinity;
-                        compare = (a,b) => a > b;
+                        compare = (a, b) => a > b;
                     }
                     break;
             }
             let nextMove;
-            for(let i = 0; i < play_board.length; i++){
-                if(play_board[i] == ""){
+            for (let i = 0; i < play_board.length; i++) {
+                if (play_board[i] == "") {
                     play_board[i] = computer;
-                    let endScore = minimax(play_board,0, false);
+                    let endScore = minimax(play_board, 0, false);
                     play_board[i] = "";
                     if (compare(endScore, score)) {
                         score = endScore;
@@ -117,32 +115,32 @@ function createGame(play_board =["","","","","","","","",""]){
     }
     game.addComputerMove = addComputerMove
 
-    let scores = {X : 1, O : -1, tie : 0};
+    let scores = {X: 1, O: -1, tie: 0};
 
     const minimax = (board, isMaximizing) => {
         let res = check_match();
-        if(res != ""){
+        if (res != "") {
             return scores[res];
         }
-        if(isMaximizing){
+        if (isMaximizing) {
             let bestScore = -Infinity;
-            for(let i = 0;i<board.length;i++){
-                if(board[i] == ""){
+            for (let i = 0; i < board.length; i++) {
+                if (board[i] == "") {
                     board[i] = computer;
                     let score = minimax(board, false);
                     board[i] = "";
-                    bestScore = Math.max(score,bestScore);
+                    bestScore = Math.max(score, bestScore);
                 }
             }
             return bestScore;
         } else {
             let bestScore = Infinity;
-            for(let i = 0;i<board.length;i++){
-                if(board[i] == ""){
+            for (let i = 0; i < board.length; i++) {
+                if (board[i] == "") {
                     board[i] = player;
                     let score = minimax(board, true);
                     board[i] = "";
-                    bestScore = Math.min(score,bestScore);
+                    bestScore = Math.min(score, bestScore);
                 }
             }
             return bestScore;
@@ -150,14 +148,14 @@ function createGame(play_board =["","","","","","","","",""]){
     }
     game.minimax = minimax
 
-     var temp1 = 0;
-     var temp2 = 0;
-     var temp3 = 0;
-     var temp4 = 0;
-     var temp5 = 0;
-     var temp6 =0;
+    var temp1 = 0;
+    var temp2 = 0;
+    var temp3 = 0;
+    var temp4 = 0;
+    var temp5 = 0;
+    var temp6 = 0;
 
-     var endMusic = null; //the Audio object for the music at the end of the game
+    var endMusic = null; //the Audio object for the music at the end of the game
 
     const checkWinner = () => {
         let res = check_match();
@@ -183,8 +181,7 @@ function createGame(play_board =["","","","","","","","",""]){
             audio.pause();
             endMusic = new Audio("audio/win.wav");
             endMusic.play();
-        }
-        else if (res == computer) {
+        } else if (res == computer) {
             winner_statement.innerText = "Computer Won";
             winner_statement.classList.add("computerWin");
             board_full = true;
@@ -196,8 +193,7 @@ function createGame(play_board =["","","","","","","","",""]){
             audio.pause();
             endMusic = new Audio("audio/gameover.wav");
             endMusic.play();
-        }
-        else if (board_full) {
+        } else if (board_full) {
             winner_statement.innerText = "Draw...";
             winner_statement.classList.add("draw");
             draw1++;
@@ -210,14 +206,14 @@ function createGame(play_board =["","","","","","","","",""]){
             endMusic.play();
         }
 
-        document.getElementById("playerstat1").innerText =   temp1;
+        document.getElementById("playerstat1").innerText = temp1;
         document.getElementById("computerstat1").innerText = temp2;
-        document.getElementById("loss1").innerText =   temp4;
+        document.getElementById("loss1").innerText = temp4;
         document.getElementById("loss2").innerText = temp3;
-        document.getElementById("draw1").innerText =  temp5;
+        document.getElementById("draw1").innerText = temp5;
         document.getElementById("draw2").innerText = temp6;
 
-        if (loss1 == 1 || loss2 == 1 || draw1 == 1 || draw2 == 1) { //when the game ends, I create and add a button in the 'div-end-of-game' div
+        if (loss1 == 1 || loss2 == 1 || draw1 == 1 || draw2 == 1) { //when the game ends, I create and add a button in the 'div-end-of-game' div
             var btn = document.createElement("button");
             btn.className = "btn-sound";
             btn.innerHTML = "<i class='fa fa-volume-up' aria-hidden='true'></i>";
@@ -231,20 +227,19 @@ function createGame(play_board =["","","","","","","","",""]){
 
     const muteAudio = () => { //mutes or demutes all the audio (music and end game music)
         var btn = document.getElementsByClassName("btn-sound")[0];
-        if(!x.muted) {
+        if (!x.muted) {
             x.muted = true;
             endMusic.muted = true;
             btn.innerHTML = "<i class='fa fa-volume-down' aria-hidden='true'></i>"; //change the icon of the button when the sound is muted
-          }
-          else {
+        } else {
             x.muted = false;
             endMusic.muted = false;
             btn.innerHTML = "<i class='fa fa-volume-up' aria-hidden='true'></i>";
-          }
+        }
     }
     game.muteAudio = muteAudio
 
-    const check_line = (a,b,c) => {
+    const check_line = (a, b, c) => {
         let status =
             play_board[a] == play_board[b] &&
             play_board[b] == play_board[c] &&
@@ -260,24 +255,24 @@ function createGame(play_board =["","","","","","","","",""]){
     game.check_line = check_line
 
     const check_match = () => {
-        for (let i=0; i<9; i+=3) {
-            if(check_line(i,i+1,i+2)) {
+        for (let i = 0; i < 9; i += 3) {
+            if (check_line(i, i + 1, i + 2)) {
                 return play_board[i];
             }
         }
-        for (let i=0; i<3; i++) {
-            if(check_line(i, i+3, i+6)) {
+        for (let i = 0; i < 3; i++) {
+            if (check_line(i, i + 3, i + 6)) {
                 return play_board[i];
             }
         }
-        if(check_line(0,4,8)) {
+        if (check_line(0, 4, 8)) {
             return play_board[0];
         }
-        if(check_line(2,4,6)) {
+        if (check_line(2, 4, 6)) {
             return play_board[2];
         }
         checkBoardComplete();
-        if(board_full) return "tie";
+        if (board_full) return "tie";
         return "";
     }
     game.check_match = check_match
@@ -304,6 +299,6 @@ function createGame(play_board =["","","","","","","","",""]){
     return game
 }
 
-if(typeof (module) != 'undefined'){
+if (typeof (module) != 'undefined') {
     module.exports = createGame
 }
