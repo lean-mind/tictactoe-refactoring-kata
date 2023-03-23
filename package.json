@@ -1,9 +1,7 @@
 {
-  "name": "js-jest-boilerplate",
-  "author": "Kevin Hierro",
-  "version": "1.0.0",
+  "name": "tictactoe-kata",
   "type": "module",
-  "description": "tdd-example-javascript",
+  "description": "tictactoe-kata-javascript",
   "directories": {
     "src": "src",
     "test": "test"
